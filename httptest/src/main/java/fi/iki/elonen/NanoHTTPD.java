@@ -194,7 +194,7 @@ public abstract class NanoHTTPD {
                                     } catch (Exception e) {
                                         // When the socket is closed by the client, we throw our own SocketException
                                         // to break the  "keep alive" loop above.
-                                        if (!(e instanceof SocketException && "NanoHttpd Shutdown".equals(e.getMessage()))) {
+                                        if (isClosingDown(e)) {
                                             e.printStackTrace();
                                         }
                                     } finally {
@@ -203,6 +203,10 @@ public abstract class NanoHTTPD {
                                         safeClose(finalAccept);
                                         unRegisterConnection(finalAccept);
                                     }
+                                }
+
+                                private boolean isClosingDown(Exception e) {
+                                    return !(e instanceof SocketException && myServerSocket.isClosed());
                                 }
                             });
                         }
@@ -238,7 +242,6 @@ public abstract class NanoHTTPD {
     }
 
     private synchronized void closeAllConnections() {
-        System.out.println("Closing "+ openConnections.size() + " connections.");
         for(Socket socket: openConnections) {
             safeClose(socket);
         }
