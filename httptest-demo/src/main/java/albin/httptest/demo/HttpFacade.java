@@ -8,14 +8,37 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * A simple class used go get content from any http-address while sending an
+ * api-key with the request.
+ */
 public class HttpFacade {
 
     private final String apiKey;
 
+    /**
+     * Create a new Instance of the HttpFacade, using the specified api key.
+     *
+     * @param apiKey
+     *            the api key to use in all requests.
+     */
     public HttpFacade(String apiKey) {
         this.apiKey = apiKey;
     }
 
+    /**
+     * Gets the content of the page at the specified http address. This method
+     * will return an empty string if the response code is anything other than
+     * 200-OK.
+     *
+     * @param httpUrl
+     *            the URL to fetch. This must be an http-url.
+     * @return the content from the server.
+     * @throws MalformedURLException
+     *             if the specied URL is not a valud URL.
+     * @throws IOException
+     *             if something went wrong while getting the content.
+     */
     public String getPage(String httpUrl) throws MalformedURLException, IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(httpUrl).openConnection();
         connection.addRequestProperty("Api-Key", apiKey);
