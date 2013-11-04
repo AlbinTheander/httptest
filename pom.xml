@@ -18,6 +18,7 @@
 	<modules>
 		<module>httptest</module>
 		<module>httptest-demo</module>
+		<module>httptest-android-demo</module>
 	</modules>
 
 	<scm>
@@ -34,6 +35,21 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>albin.httptest</groupId>
+				<artifactId>httptest</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.android</groupId>
+				<artifactId>android</artifactId>
+				<version>4.1.1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.android</groupId>
+				<artifactId>android-test</artifactId>
+				<version>4.1.1.4</version>
+			</dependency>
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-all</artifactId>
@@ -60,10 +76,21 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!-- <plugin> <groupId>com.jayway.maven.plugins.android.generation2</groupId> 
-					<artifactId>android-maven-plugin</artifactId> <version>3.6.0</version> <configuration> 
-					<sdk> <platform>17</platform> </sdk> <undeployBeforeDeploy>true</undeployBeforeDeploy> 
-					<test> <createReport>true</createReport> </test> </configuration> </plugin> -->
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>android-maven-plugin</artifactId>
+					<version>3.6.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<sdk>
+							<platform>16</platform>
+						</sdk>
+						<undeployBeforeDeploy>true</undeployBeforeDeploy>
+						<test>
+							<createReport>true</createReport>
+						</test>
+					</configuration>
+				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.0</version>
